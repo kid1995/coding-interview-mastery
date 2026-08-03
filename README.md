@@ -1,5 +1,7 @@
 # Coding Interview Mastery — Theory Notes
 
+👉 **Live site:** **[kid1995.github.io/coding-interview-mastery](https://kid1995.github.io/coding-interview-mastery/)**
+
 A study vault covering the foundational theory needed to solve:
 - **Elevator Saga**-style simulation/scheduling problems ([play.elevatorsaga.com](https://play.elevatorsaga.com/))
 - **LeetCode**-style algorithm exercises
@@ -38,3 +40,27 @@ via web search before being cited.
 
 Docs-only for now. Practice-code folders (Elevator Saga solutions, LeetCode solutions) can be added
 later once you're actively solving specific problems.
+
+## Publishing (Quartz)
+
+The site is generated from `docs/Mindmap/` using [Quartz](https://quartz.jzhao.xyz/), which turns
+Obsidian-style wikilinks into a real linked website (graph view, search, backlinks included).
+`content/` is a symlink to `docs/Mindmap/` — there's only one copy of the notes, Quartz just reads
+them from that path instead of the default `content/` folder name.
+
+- **Preview locally:** `npm install --legacy-peer-deps && npx quartz build --serve`, then open
+  `http://localhost:8080`.
+- **Deploy:** automatic — `.github/workflows/deploy.yml` builds and publishes to GitHub Pages on
+  every push to `main`.
+- **`--legacy-peer-deps` is required**: Quartz's own dependency tree has a peer-dependency conflict
+  between `@quartz-community/latex` and `@myriaddreamin/rehype-typst` (unrelated to this repo's
+  content) that plain `npm install` refuses to resolve.
+- **No lockfile is committed** (this account's global `.gitignore` excludes `package-lock.json`
+  across all projects), so CI uses `npm install` rather than `npm ci`.
+- **`public/CNAME` is stripped after every build**: Quartz auto-generates it from
+  `configuration.baseUrl` in `quartz.config.yaml`, but since this is a GitHub Pages *project* page
+  (`kid1995.github.io/coding-interview-mastery`) rather than a custom domain, that file would
+  incorrectly claim the bare `kid1995.github.io` apex domain. Project pages don't need a CNAME.
+
+Re-running the `study-mindmap-vault` skill to add/update notes refreshes `docs/Mindmap/` as usual —
+no extra step needed, since `content/` just symlinks to it.

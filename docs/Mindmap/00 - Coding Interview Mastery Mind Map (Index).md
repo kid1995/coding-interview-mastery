@@ -5,6 +5,7 @@ node_type: root
 tags: [coding-interview, moc]
 source: "coding-interview-mastery vault — designed from scratch, verified via web research"
 created: 2026-08-03
+aliases: ["index"]
 ---
 
 # Coding Interview Mastery — Mind Map Index
